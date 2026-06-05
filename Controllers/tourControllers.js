@@ -119,7 +119,7 @@ exports.checkBody = (req, res, next) => {
 };
 
 exports.allTour = catchAsync(async (req, res, next) => {
-  // try {
+//   try {
   //EXECUTE QUERY
   const features = new ApiFeatures(Tour.find(), req.query)
     .filter()
