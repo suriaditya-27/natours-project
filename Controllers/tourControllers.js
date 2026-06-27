@@ -4,25 +4,6 @@ const ApiFeatures = require('./../utils/Apifeatures');
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError.js');
 
-//contains the main js data -- NO LONGER NEEDED
-// const tours = JSON.parse(
-//   fs.readFileSync(
-//     'D:/complete-node-bootcamp-master/4-natours/starter/dev-data/data/tours-simple.json',
-//   ),
-// );
-
-//NOw this is also not needed MONGODB's ID will itself check it
-// exports.checkId = (req, res, next, val) => {
-//   console.log(`The id is : ${val}`);
-//   if (req.params.id * 1 >= tours.length) {
-//     return res.status(404).json({
-//       status: 'fail',
-//       message: 'Invalid Tour access',
-//     });
-//   }
-//   next();
-// };
-
 exports.aliasTopTours = (req, res, next) => {
   req.query = {
     limit: '5',
@@ -119,7 +100,6 @@ exports.checkBody = (req, res, next) => {
 };
 
 exports.allTour = catchAsync(async (req, res, next) => {
-//   try {
   //EXECUTE QUERY
   const features = new ApiFeatures(Tour.find(), req.query)
     .filter()
@@ -157,24 +137,6 @@ exports.getTour = catchAsync(async (req, res, next) => {
   });
 });
 
-// const id = req.params.id * 1; //converting string to number
-// const tour = tours.find((el) => el.id === id);
-
-// // if (id >= tours.length)
-// if (!tour) {
-//   res.status(404).json({
-//     status: 'fail',
-//     message: 'Invalid Tour access',
-//   });
-// }
-
-// res.status(200).json({
-//   status: 'success',
-//   data: {
-//     tour,
-//   },
-// });
-
 exports.createTour = catchAsync(async (req, res, next) => {
   // try
   // const newTour = new Tour({name,rating...})
@@ -194,28 +156,6 @@ exports.createTour = catchAsync(async (req, res, next) => {
   //   });
   // }
 });
-// console.log(req.body);
-// const newId = tours.length;
-// const newTour = Object.assign({ id: newId }, req.body);
-// tours.push(newTour);
-// fs.writeFile(
-//   'D:/complete-node-bootcamp-master/4-natours/starter/dev-data/data/tours-simple.json',
-//   JSON.stringify(tours),
-//   (err) => {
-//     if (err) {
-//       return res.status(500).json({
-//         status: 'fail',
-//         message: 'Failed to write file',
-//       });
-//     }
-//     res.status(201).json({
-//       status: 'Success',
-//       data: {
-//         tours: newTour,
-//       },
-//     });
-//   },
-// );
 
 exports.updateTour = catchAsync(async (req, res, next) => {
   const tour = await Tour.findByIdAndUpdate(req.params.id, req.body, {
@@ -248,6 +188,70 @@ exports.deleteTour = catchAsync(async (req, res, next) => {
     data: null,
   });
 });
+
+//written at top
+
+//contains the main js data -- NO LONGER NEEDED
+// const tours = JSON.parse(
+//   fs.readFileSync(
+//     'D:/complete-node-bootcamp-master/4-natours/starter/dev-data/data/tours-simple.json',
+//   ),
+// );
+
+//NOw this is also not needed MONGODB's ID will itself check it
+// exports.checkId = (req, res, next, val) => {
+//   console.log(`The id is : ${val}`);
+//   if (req.params.id * 1 >= tours.length) {
+//     return res.status(404).json({
+//       status: 'fail',
+//       message: 'Invalid Tour access',
+//     });
+//   }
+//   next();
+// };
+
+//was written in getAllTours but now we are using it in a separate file and importing it here
+// const id = req.params.id * 1; //converting string to number
+// const tour = tours.find((el) => el.id === id);
+
+// // if (id >= tours.length)
+// if (!tour) {
+//   res.status(404).json({
+//     status: 'fail',
+//     message: 'Invalid Tour access',
+//   });
+// }
+
+// res.status(200).json({
+//   status: 'success',
+//   data: {
+//     tour,
+//   },
+// });
+
+//was written in createTour but now we are using it in a separate file and importing it here
+// console.log(req.body);
+// const newId = tours.length;
+// const newTour = Object.assign({ id: newId }, req.body);
+// tours.push(newTour);
+// fs.writeFile(
+//   'D:/complete-node-bootcamp-master/4-natours/starter/dev-data/data/tours-simple.json',
+//   JSON.stringify(tours),
+//   (err) => {
+//     if (err) {
+//       return res.status(500).json({
+//         status: 'fail',
+//         message: 'Failed to write file',
+//       });
+//     }
+//     res.status(201).json({
+//       status: 'Success',
+//       data: {
+//         tours: newTour,
+//       },
+//     });
+//   },
+// );
 
 //BUILD QUERY
 // //1. Filtering
